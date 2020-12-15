@@ -17,8 +17,8 @@ class Type {
 
 public class JpaMain {
 	public static void main(String[] args) {
-//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Theater-System");
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Theater-System");
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
 		EntityManager em = emf.createEntityManager();
 
 		EntityTransaction tx = em.getTransaction();
@@ -68,40 +68,7 @@ public class JpaMain {
 			Account Caccount1 = new Account("카카오페이","78544521354",100000);
 			Caccount1.setUser(client);
 			em.persist(Caccount1);
-			
-			ReservationSeat rs1 = new ReservationSeat();
-			Seat seat1 = new Seat("C10");
-			rs1.setSeat(seat1);
-			ReservationSeat rs2 = new ReservationSeat();
-			Seat seat2 = new Seat("C11");
-			rs2.setSeat(seat2);
-			em.persist(rs1);
-			em.persist(rs2);
-			em.persist(seat1);
-			em.persist(seat2);
-
-			System.out.println("====== seat: "+seat1.getRs().size());
-			
-			Reservation reservation1 = new Reservation(Type.성인);
-			reservation1.setUser(client);
-			//rs1.setReservation(reservation1);
-			em.persist(reservation1);
-			Reservation reservation2 = new Reservation(Type.청소년);
-			reservation2.setUser(client);
-			em.persist(reservation2);
-			
-			
-			System.out.println("==== reservation count : "+client.getReservation().size());
-			
-			System.out.println("======: "+client.pay());
-			
-			Billing billing = new Billing("구미영화관", client.pay());
-			billing.setAccount(Caccount1);
-			billing.check();
-			reservation1.setBilling(billing);
-			reservation2.setBilling(billing);
-			em.persist(billing);
-			
+						
 			// 영화관
 			Theater theater1 = new Theater();
 			theater1.setClosedDay(LocalDate.of(2020, 12, 25));
@@ -119,6 +86,46 @@ public class JpaMain {
 
 			screenhalls.add(screenhall1);
 			em.persist(screenhall1);
+			
+			ReservationSeat rs1 = new ReservationSeat();
+			Seat seat1 = new Seat("C10");
+			seat1.setScreenhall(screenhall1);
+			rs1.setSeat(seat1);
+			ReservationSeat rs2 = new ReservationSeat();
+			Seat seat2 = new Seat("C11");
+			seat2.setScreenhall(screenhall1);
+			rs2.setSeat(seat2);
+			em.persist(rs1);
+			em.persist(rs2);
+			em.persist(seat1);
+			em.persist(seat2);
+
+			
+			System.out.println("====== seat: "+seat1.getRs().size());
+			
+			Reservation reservation1 = new Reservation(Type.성인);
+			reservation1.setUser(client);
+			//rs1.setReservation(reservation1);
+			rs1.setReservation(reservation1);
+			em.persist(reservation1);
+			Reservation reservation2 = new Reservation(Type.청소년);
+			reservation2.setUser(client);
+			rs2.setReservation(reservation2);
+			em.persist(reservation2);
+			
+			
+			System.out.println("==== reservation count : "+client.getReservation().size());
+			
+			System.out.println("======: "+client.pay());
+			
+			Billing billing = new Billing("구미영화관", client.pay());
+			billing.setAccount(Caccount1);
+			billing.check();
+			reservation1.setBilling(billing);
+			reservation2.setBilling(billing);
+			em.persist(billing);
+			
+			
 			
 			
 

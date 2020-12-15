@@ -3,24 +3,24 @@ package miniproject;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Seat {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="SEAT_ID")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "SEAT_ID")
 	private Long id;
-	
+
 	@OneToMany(mappedBy = "seat")
 	private List<ReservationSeat> rs = new ArrayList<ReservationSeat>();
+	
+	@ManyToOne
+	@JoinColumn(name = "SCREEN_HALL_ID")
+	private ScreenHall screenhall;
 
 	private String name;
-	
+
 	public Seat(String name) {
 		this.name = name;
 	}
@@ -41,6 +41,14 @@ public class Seat {
 		this.rs = rs;
 	}
 
+	public ScreenHall getScreenhall() {
+		return screenhall;
+	}
+
+	public void setScreenhall(ScreenHall screenhall) {
+		this.screenhall = screenhall;
+	}
 	
 	
+
 }
