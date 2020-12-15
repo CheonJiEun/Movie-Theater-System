@@ -84,7 +84,7 @@ public class JpaMain {
 			
 			Reservation reservation1 = new Reservation(Type.성인);
 			reservation1.setUser(client);
-			//rs.setReservation(reservation1);
+			//rs1.setReservation(reservation1);
 			em.persist(reservation1);
 			Reservation reservation2 = new Reservation(Type.청소년);
 			reservation2.setUser(client);
