@@ -13,7 +13,7 @@ public class ScreenHall {
 	private Long id; // 상영관 번호
 	private String name; // 상영관 이름
 	private Integer totalSeats; // 상영관 총 좌석수
-	private Integer remainedSeats;
+	private Integer remainedSeats; // 상영관 잔여석
 	
 	@Lob
 	private String description; // 상영관 특이사항

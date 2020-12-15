@@ -26,6 +26,27 @@ public class JpaMain {
 		try {
 			tx.begin();
 			
+			// 영화관
+			Theater theater1 = new Theater();
+			theater1.setClosedDay(LocalDate.of(2020, 12, 25));
+			theater1.setTotalAmounts(100000);
+			
+			theater1.setName("구미영화관");
+			em.persist(theater1);
+			
+			// 상영관
+			List<ScreenHall> screenhalls = new ArrayList<ScreenHall>();
+			ScreenHall screenhall1 = new ScreenHall();
+			screenhall1.setDescription("구미");
+			screenhall1.setName("구미영화관");
+			screenhall1.setTotalSeats(100);
+			screenhall1.setTheater(theater1);
+			
+//			System.out.println("영화관 이름 !!!!!!"+ screenhall1.getTheater().getName());
+
+			screenhalls.add(screenhall1);
+			em.persist(screenhall1);
+			
 			Manager manager = new Manager();
 			manager.setName("관리자");
 			manager.setPassword("12345");
@@ -40,14 +61,19 @@ public class JpaMain {
 			em.persist(Maccount);
 			
 			
-			
+			List<Staff> staffs = new ArrayList<Staff>();
 			Staff staff = new Staff();
 			staff.setName("직원");
 			staff.setPassword("54321");
 			staff.setPhoneNumber("010-1111-1111");
 			staff.setWorkPeriod(new Period(LocalDate.of(2020, 12, 1), LocalDate.of(2020, 12, 31)));
+			staff.setTheater(theater1);
+			staffs.add(staff);
 			Boolean SisWork = staff.getWorkPeriod().isWork(LocalDate.now());
 			System.out.println("==== Staff isWork : "+ SisWork);
+			
+			theater1.setTotalStaff(staffs);
+			System.out.println("스텝수 !!!!!!!!" + theater1.getTotalStaff());
 			em.persist(staff);
 			
 			Account Saccount1 = new Account("국민","454132454355",100000);
@@ -69,26 +95,7 @@ public class JpaMain {
 			Caccount1.setUser(client);
 			em.persist(Caccount1);
 						
-			// 영화관
-			Theater theater1 = new Theater();
-			theater1.setClosedDay(LocalDate.of(2020, 12, 25));
-			theater1.setTotalAmounts(100000);
-			theater1.setTotalStaff(3);
-			theater1.setName("구미영화관");
-			em.persist(theater1);
-			
-			// 상영관
-			List<ScreenHall> screenhalls = new ArrayList<ScreenHall>();
-			ScreenHall screenhall1 = new ScreenHall();
-			screenhall1.setDescription("구미");
-			screenhall1.setName("구미영화관");
-			screenhall1.setTotalSeats(100);
-			screenhall1.setTheater(theater1);
-			
-//			System.out.println("영화관 이름 !!!!!!"+ screenhall1.getTheater().getName());
 
-			screenhalls.add(screenhall1);
-			em.persist(screenhall1);
 			
 			ReservationSeat rs1 = new ReservationSeat();
 			List<Seat> seats = new ArrayList<Seat>();
@@ -111,7 +118,7 @@ public class JpaMain {
 			System.out.println("좌석수!!!!!!!!!!!!!!!!!!!!!!!: " + seats.size());
 			
 			screenhall1.setRemainedSeats(seats);
-			System.out.println("남여좌석 !!!!!!"+ screenhall1.getRemainedSeats());
+			System.out.println("남은좌석 !!!!!!"+ screenhall1.getRemainedSeats());
 
 			
 			System.out.println("====== seat: "+seat1.getRs().size());

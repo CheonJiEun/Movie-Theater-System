@@ -18,6 +18,9 @@ public class Theater {
 
 	private Integer TotalStaff; // 영화관 직원 수
 	private Integer TotalAmounts; // 영화관 수입
+	
+	@OneToMany(mappedBy = "theater")
+	private List<Staff> staffs = new ArrayList<Staff>();
 
 	@OneToMany(mappedBy = "theater")
 	private List<ScreenHall> screenhalls = new ArrayList<ScreenHall>();
@@ -48,8 +51,9 @@ public class Theater {
 		return TotalStaff;
 	}
 
-	public void setTotalStaff(Integer totalStaff) {
-		TotalStaff = totalStaff;
+	public void setTotalStaff(List<Staff> staffs) {
+		TotalStaff = 0;
+		TotalStaff = staffs.size();
 	}
 
 	public Integer getTotalAmounts() {
@@ -75,5 +79,15 @@ public class Theater {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public List<Staff> getStaffs() {
+		return staffs;
+	}
+
+	public void setStaffs(List<Staff> staffs) {
+		this.staffs = staffs;
+	}
+	
+	
 
 }
