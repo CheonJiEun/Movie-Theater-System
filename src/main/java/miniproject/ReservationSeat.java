@@ -10,46 +10,40 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="RESERVATION_SEAT")
+@Table(name = "RESERVATION_SEAT")
 public class ReservationSeat {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="RESERVATION_SEAT_ID")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "RESERVATION_SEAT_ID")
 	private Long id;
-	
-	@ManyToOne
-	@JoinColumn(name="RESERVATION_ID")
-	private Reservation reservation;
-	
-	
-	@ManyToOne
-	@JoinColumn(name="SEAR_ID")
-	private Seat seat;
 
+	@ManyToOne
+	@JoinColumn(name = "RESERVATION_ID")
+	private Reservation reservation;
+
+	@ManyToOne
+	@JoinColumn(name = "SEAT_ID")
+	private Seat seat;
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public Reservation getReservation() {
 		return reservation;
 	}
 
-
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
 
-
 	public Seat getSeat() {
 		return seat;
 	}
-
 
 	public void setSeat(Seat seat) {
 		if (this.seat != null) {
@@ -58,6 +52,5 @@ public class ReservationSeat {
 		this.seat = seat;
 		this.seat.getRs().add(this);
 	}
-	
-	
+
 }

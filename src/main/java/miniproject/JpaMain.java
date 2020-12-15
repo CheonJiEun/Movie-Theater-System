@@ -74,6 +74,7 @@ public class JpaMain {
 			theater1.setClosedDay(LocalDate.of(2020, 12, 25));
 			theater1.setTotalAmounts(100000);
 			theater1.setTotalStaff(3);
+			theater1.setName("구미영화관");
 			em.persist(theater1);
 			
 			// 상영관
@@ -83,6 +84,7 @@ public class JpaMain {
 			screenhall1.setName("구미영화관");
 			screenhall1.setTotalSeats(100);
 			screenhall1.setTheater(theater1);
+//			System.out.println("영화관 이름 !!!!!!"+ screenhall1.getTheater().getName());
 
 			screenhalls.add(screenhall1);
 			em.persist(screenhall1);

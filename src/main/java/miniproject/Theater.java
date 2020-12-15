@@ -12,6 +12,7 @@ public class Theater {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "THEATER_ID")
 	private Long id; // 영화관 번호
+	private String name; // 영화관 이름
 
 	private LocalDate closedDay; // 영화관 휴무일
 
@@ -67,5 +68,12 @@ public class Theater {
 		this.screenhalls = screenhalls;
 	}
 
-	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }
