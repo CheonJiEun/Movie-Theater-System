@@ -37,6 +37,10 @@ public class Reservation {
 		this.reserveDate = LocalDate.now();
 		this.price = 9000;
 	}
+	
+	public Integer Pay(Integer count) {
+		return count*this.price;
+	}
 
 	public Long getId() {
 		return id;
