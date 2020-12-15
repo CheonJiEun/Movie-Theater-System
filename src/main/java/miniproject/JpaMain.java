@@ -66,7 +66,6 @@ public class JpaMain {
 			Reservation reservation2 = new Reservation();
 			reservation2.setUser(client);
 			
-			//¿Ö¾ÈµÅ
 			System.out.println("==== reservation count : "+client.getReservation().size());
 			
 			
