@@ -1,6 +1,8 @@
 package miniproject;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,7 +17,8 @@ class Type {
 
 public class JpaMain {
 	public static void main(String[] args) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Theater-System");
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
 		EntityManager em = emf.createEntityManager();
 
 		EntityTransaction tx = em.getTransaction();
@@ -85,6 +88,25 @@ public class JpaMain {
 			reservation1.setBilling(billing);
 			reservation2.setBilling(billing);
 			em.persist(billing);
+			
+			// 영화관
+			Theater theater1 = new Theater();
+			theater1.setClosedDay(LocalDate.of(2020, 12, 25));
+			theater1.setTotalAmounts(100000);
+			theater1.setTotalStaff(3);
+			em.persist(theater1);
+			
+			// 상영관
+			List<ScreenHall> screenhalls = new ArrayList<ScreenHall>();
+			ScreenHall screenhall1 = new ScreenHall();
+			screenhall1.setDescription("구미");
+			screenhall1.setName("구미영화관");
+			screenhall1.setTotalSeats(100);
+			screenhall1.setTheater(theater1);
+
+			screenhalls.add(screenhall1);
+			em.persist(screenhall1);
+			
 			
 
 			tx.commit();
