@@ -78,6 +78,8 @@ public class JpaMain {
 			reservation1.setBilling(billing);
 			em.persist(reservation1);
 			
+			System.out.println("¿°Á¤¾Æ test");
+			
 
 			tx.commit();
 		} catch (Exception e) {
