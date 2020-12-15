@@ -66,7 +66,9 @@ public class JpaMain {
 			Reservation reservation2 = new Reservation();
 			reservation2.setUser(client);
 			
+			//이걸로 하는건가..
 			System.out.println("==== reservation count : "+client.getReservation().size());
+			
 			
 			
 			Billing billing = new Billing("구미영화관", 9000);
