@@ -1,6 +1,7 @@
 package miniproject;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +42,42 @@ public class JpaMain {
 			screenhall1.setName("구미영화관");
 			screenhall1.setTotalSeats(100);
 			screenhall1.setTheater(theater1);
-			
 //			System.out.println("영화관 이름 !!!!!!"+ screenhall1.getTheater().getName());
 
 			screenhalls.add(screenhall1);
 			em.persist(screenhall1);
+			
+			Movie movie1 = new Movie();
+			movie1.setName("노트북");
+			movie1.setLimitAge(12);
+			movie1.setDirector("닉 카사베츠");
+			movie1.setOpenDay(LocalDate.of(2020, 11, 04));
+			movie1.setRunTime(LocalTime.of(2, 23));
+			movie1.setStory("로맨스");
+			em.persist(movie1);
+			
+			List<Actor> actors = new ArrayList<Actor>();
+			Actor actor1 = new Actor();
+			actor1.setName("라이언 고슬링");
+			actor1.setMovie(movie1);
+			Actor actor2 = new Actor();
+			actor2.setName("레이첼 맥아담스");
+			actor2.setMovie(movie1);
+			actors.add(actor1);
+			actors.add(actor2);
+			movie1.setActors(actors);
+			em.persist(actor1);
+			em.persist(actor2);
+			
+			List<MovieSchedule> mss = new ArrayList<MovieSchedule>();
+			
+			MovieSchedule ms1 = new MovieSchedule();
+			ms1.setMovie(movie1);
+			ms1.setStartTime(LocalTime.of(16, 0));
+			ms1.setEndTime(LocalTime.of(18, 30));
+			ms1.setScreehall(screenhall1);
+			mss.add(ms1);
+			em.persist(ms1);
 			
 			Manager manager = new Manager();
 			manager.setName("관리자");
@@ -125,11 +157,12 @@ public class JpaMain {
 			
 			Reservation reservation1 = new Reservation(Type.성인);
 			reservation1.setUser(client);
-			//rs1.setReservation(reservation1);
+			reservation1.setMovieshedules(mss);
 			rs1.setReservation(reservation1);
 			em.persist(reservation1);
 			Reservation reservation2 = new Reservation(Type.청소년);
 			reservation2.setUser(client);
+			reservation2.setMovieshedules(mss);
 			rs2.setReservation(reservation2);
 			em.persist(reservation2);
 			

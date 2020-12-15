@@ -5,6 +5,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+/**
+ * @author 82109
+ *
+ */
 @Entity
 public class ScreenHall {
 	@Id
@@ -14,17 +18,20 @@ public class ScreenHall {
 	private String name; // 상영관 이름
 	private Integer totalSeats; // 상영관 총 좌석수
 	private Integer remainedSeats; // 상영관 잔여석
-	
+
 	@Lob
 	private String description; // 상영관 특이사항
 
 	@ManyToOne
 	@JoinColumn(name = "THEATER_ID")
 	private Theater theater;
-	
+
 	@OneToMany(mappedBy = "screenhall")
 	private List<Seat> seats = new ArrayList<Seat>();
-	
+
+	@OneToMany(mappedBy = "screenhall")
+	private List<MovieSchedule> movieschedules = new ArrayList<MovieSchedule>();
+
 	// 상영관 -- 생성자
 	public ScreenHall() {
 	}
@@ -89,7 +96,13 @@ public class ScreenHall {
 	public void setRemainedSeats(List<Seat> seats) {
 		this.remainedSeats = this.totalSeats - seats.size();
 	}
-	
-	
+
+	public List<MovieSchedule> getMovieschedule() {
+		return movieschedules;
+	}
+
+	public void setMovieschedule(List<MovieSchedule> movieschedule) {
+		this.movieschedules = movieschedule;
+	}
 
 }
