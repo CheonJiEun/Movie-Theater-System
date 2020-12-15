@@ -84,23 +84,34 @@ public class JpaMain {
 			screenhall1.setName("구미영화관");
 			screenhall1.setTotalSeats(100);
 			screenhall1.setTheater(theater1);
+			
 //			System.out.println("영화관 이름 !!!!!!"+ screenhall1.getTheater().getName());
 
 			screenhalls.add(screenhall1);
 			em.persist(screenhall1);
 			
 			ReservationSeat rs1 = new ReservationSeat();
+			List<Seat> seats = new ArrayList<Seat>();
+			
 			Seat seat1 = new Seat("C10");
 			seat1.setScreenhall(screenhall1);
+			seats.add(seat1);
 			rs1.setSeat(seat1);
+			
 			ReservationSeat rs2 = new ReservationSeat();
 			Seat seat2 = new Seat("C11");
 			seat2.setScreenhall(screenhall1);
+			seats.add(seat2);
 			rs2.setSeat(seat2);
 			em.persist(rs1);
 			em.persist(rs2);
 			em.persist(seat1);
 			em.persist(seat2);
+			
+			System.out.println("좌석수!!!!!!!!!!!!!!!!!!!!!!!: " + seats.size());
+			
+			screenhall1.setRemainedSeats(seats);
+			System.out.println("남여좌석 !!!!!!"+ screenhall1.getRemainedSeats());
 
 			
 			System.out.println("====== seat: "+seat1.getRs().size());
@@ -115,7 +126,6 @@ public class JpaMain {
 			rs2.setReservation(reservation2);
 			em.persist(reservation2);
 			
-			
 			System.out.println("==== reservation count : "+client.getReservation().size());
 			
 			System.out.println("======: "+client.pay());
@@ -127,10 +137,6 @@ public class JpaMain {
 			reservation2.setBilling(billing);
 			em.persist(billing);
 			
-			
-			
-			
-
 			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();

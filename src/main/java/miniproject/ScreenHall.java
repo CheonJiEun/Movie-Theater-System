@@ -13,14 +13,18 @@ public class ScreenHall {
 	private Long id; // 상영관 번호
 	private String name; // 상영관 이름
 	private Integer totalSeats; // 상영관 총 좌석수
-
+	private Integer remainedSeats;
+	
 	@Lob
 	private String description; // 상영관 특이사항
 
 	@ManyToOne
 	@JoinColumn(name = "THEATER_ID")
 	private Theater theater;
-
+	
+	@OneToMany(mappedBy = "screenhall")
+	private List<Seat> seats = new ArrayList<Seat>();
+	
 	// 상영관 -- 생성자
 	public ScreenHall() {
 	}
@@ -69,5 +73,23 @@ public class ScreenHall {
 	public void setTheater(Theater theater) {
 		this.theater = theater;
 	}
+
+	public List<Seat> getSeats() {
+		return seats;
+	}
+
+	public void setSeats(List<Seat> seats) {
+		this.seats = seats;
+	}
+
+	public Integer getRemainedSeats() {
+		return remainedSeats;
+	}
+
+	public void setRemainedSeats(List<Seat> seats) {
+		this.remainedSeats = this.totalSeats - seats.size();
+	}
+	
+	
 
 }
