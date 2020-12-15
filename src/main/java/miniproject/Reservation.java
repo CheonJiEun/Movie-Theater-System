@@ -38,9 +38,10 @@ public class Reservation {
 		this.price = 9000;
 	}
 	
-//	public Integer payTotal(Integer count) {
-//		return count*this.price;
-//	}
+	public Reservation(Integer price) {
+		this.reserveDate = LocalDate.now();
+		this.price = price;
+	}
 
 	public Long getId() {
 		return id;

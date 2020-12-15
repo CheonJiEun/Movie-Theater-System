@@ -7,6 +7,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+class Type {
+	static Integer 성인 = 9000;
+	static Integer 청소년 = 8000;
+	static Integer 어린이 = 6000;
+}
+
 public class JpaMain {
 	public static void main(String[] args) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
@@ -61,24 +67,24 @@ public class JpaMain {
 			em.persist(Caccount1);
 			
 			
-			Reservation reservation1 = new Reservation();
+			Reservation reservation1 = new Reservation(Type.성인);
 			reservation1.setUser(client);
-			Reservation reservation2 = new Reservation();
+			em.persist(reservation1);
+			Reservation reservation2 = new Reservation(Type.청소년);
 			reservation2.setUser(client);
+			em.persist(reservation2);
 			
 			
 			System.out.println("==== reservation count : "+client.getReservation().size());
 			
+			System.out.println("======: "+client.pay());
 			
-			
-			Billing billing = new Billing("구미영화관", 9000);
+			Billing billing = new Billing("구미영화관", client.pay());
 			billing.setAccount(Caccount1);
 			billing.check();
-			em.persist(billing);
 			reservation1.setBilling(billing);
-			em.persist(reservation1);
-			
-			System.out.println("염정아 test");
+			reservation2.setBilling(billing);
+			em.persist(billing);
 			
 
 			tx.commit();
