@@ -68,6 +68,7 @@ public class JpaMain {
 			
 			System.out.println("==== reservation count : "+client.getReservation().size());
 			
+			
 			Billing billing = new Billing("구미영화관", 9000);
 			billing.setAccount(Caccount1);
 			billing.check();
