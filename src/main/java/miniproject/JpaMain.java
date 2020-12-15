@@ -17,8 +17,8 @@ class Type {
 
 public class JpaMain {
 	public static void main(String[] args) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Theater-System");
-//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Theater-System");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
 		EntityManager em = emf.createEntityManager();
 
 		EntityTransaction tx = em.getTransaction();
@@ -69,9 +69,22 @@ public class JpaMain {
 			Caccount1.setUser(client);
 			em.persist(Caccount1);
 			
+			ReservationSeat rs1 = new ReservationSeat();
+			Seat seat1 = new Seat("C10");
+			rs1.setSeat(seat1);
+			ReservationSeat rs2 = new ReservationSeat();
+			Seat seat2 = new Seat("C11");
+			rs2.setSeat(seat2);
+			em.persist(rs1);
+			em.persist(rs2);
+			em.persist(seat1);
+			em.persist(seat2);
+
+			System.out.println("====== seat: "+seat1.getRs().size());
 			
 			Reservation reservation1 = new Reservation(Type.성인);
 			reservation1.setUser(client);
+			//rs.setReservation(reservation1);
 			em.persist(reservation1);
 			Reservation reservation2 = new Reservation(Type.청소년);
 			reservation2.setUser(client);

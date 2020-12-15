@@ -19,6 +19,12 @@ public class Seat {
 	@OneToMany(mappedBy = "seat")
 	private List<ReservationSeat> rs = new ArrayList<ReservationSeat>();
 
+	private String name;
+	
+	public Seat(String name) {
+		this.name = name;
+	}
+
 	public Long getId() {
 		return id;
 	}

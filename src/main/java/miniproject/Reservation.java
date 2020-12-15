@@ -42,7 +42,7 @@ public class Reservation {
 	
 	public Reservation() {
 		this.reserveDate = LocalDate.now();
-		this.price = 9000;
+		this.price = 9000; //타입 지정안하면 성인 비용으로 지불
 	}
 	
 	public Reservation(Integer price) {
